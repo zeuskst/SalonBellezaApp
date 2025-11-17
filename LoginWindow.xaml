@@ -1,0 +1,9 @@
+﻿<Window x:Class="SalonBellezaApp.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LoginWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None">
+</Window>
+

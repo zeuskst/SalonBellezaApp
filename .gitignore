@@ -1,0 +1,68 @@
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+
+# Visual Studio cache/options
+.vs/
+.vs/**
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# Local app data
+AppData/Local/SalonBellezaApp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.temp
+*.tmp
+*~
+
+# NuGet
+.nuget/
+packages/
+*.nupkg
+*.snupkg
+
+# AI / assistant / copilot artifacts
+.copilot
+*.copilot
+*copilot*
+*.ai
+ai_*
+*.ai_* 
+.github/copilot*
+.github/workflows/copilot*
+
+# logs and indexes often created by IDEs or assistant tools
+*.log
+*.vsidx
+
+# Other local caches
+.vsconfig
+
+# Ensure exported report folders are not committed by default
+BellaVistaReports/
+
+# Protect any files that may contain AI traces
+**/ai_*/
+**/*copilot*/
+**/*.copilot
