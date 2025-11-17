@@ -277,7 +277,7 @@ namespace SalonBellezaApp
                     Background = Brushes.Transparent
                 };
 
-                // If this is the phone textbox, restrict input to digits and max length 10
+                
                 if (name == "txtTelefono")
                 {
                     textBox.MaxLength = 10;
@@ -297,7 +297,7 @@ namespace SalonBellezaApp
 
         private void TxtTelefono_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            // Allow only digits
+            
             if (!e.Text.All(char.IsDigit))
             {
                 e.Handled = true;
@@ -719,7 +719,7 @@ namespace SalonBellezaApp
                     return;
                 }
 
-                // Validar que el teléfono tenga exactamente 10 dígitos (extraer solo dígitos)
+                
                 var telefonoDigits = new string(telefono.Where(char.IsDigit).ToArray());
                 if (telefonoDigits.Length != 10)
                 {

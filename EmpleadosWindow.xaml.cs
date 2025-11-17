@@ -649,7 +649,6 @@ namespace SalonBellezaApp
                 var especialidad = ((TextBox)this.FindName("txtEspecialidad")).Text.Trim();
                 var horarioDisponible = ((TextBox)this.FindName("txtHorarioDisponible")).Text.Trim();
 
-                // Validaciones
                 if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(paterno) || string.IsNullOrWhiteSpace(materno))
                 {
                     MessageBox.Show("El nombre y los apellidos son obligatorios.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);

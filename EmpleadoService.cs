@@ -122,7 +122,7 @@ Command Timeout=30;";
                 {
                     await connection.OpenAsync();
 
-                    // Verificar si tiene citas asociadas
+                    
                     string verificarQuery = "SELECT COUNT(*) FROM Citas WHERE IdEmpleado = @IdEmpleado";
                     using (var verificarCmd = new SqlCommand(verificarQuery, connection))
                     {

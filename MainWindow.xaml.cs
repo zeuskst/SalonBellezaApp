@@ -25,7 +25,7 @@ namespace SalonBellezaApp
         private ProductoService _productoService;
         private PagoService _pagoService;
 
-        // UI helpers
+        
         private DispatcherTimer _clockTimer;
         private TextBlock _dateTextBlock;
 
@@ -208,7 +208,7 @@ namespace SalonBellezaApp
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-            // Left: welcome
+            
             TextBlock welcomeText = new TextBlock
             {
                 Text = "Bienvenido al Sistema de Gestión",
@@ -220,7 +220,7 @@ namespace SalonBellezaApp
             Grid.SetColumn(welcomeText, 0);
             headerGrid.Children.Add(welcomeText);
 
-            // Middle: date/time (live)
+            
             _dateTextBlock = new TextBlock
             {
                 FontSize = 14,
@@ -232,7 +232,6 @@ namespace SalonBellezaApp
             Grid.SetColumn(_dateTextBlock, 1);
             headerGrid.Children.Add(_dateTextBlock);
 
-            // Right: user + actions
             StackPanel rightPanel = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
             TextBlock userText = new TextBlock
             {
@@ -279,7 +278,7 @@ namespace SalonBellezaApp
             Grid.SetRow(headerBorder, 0);
             contentGrid.Children.Add(headerBorder);
 
-            // Setup clock timer
+            
             _clockTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _clockTimer.Tick += (s, e) => UpdateClockText();
             _clockTimer.Start();

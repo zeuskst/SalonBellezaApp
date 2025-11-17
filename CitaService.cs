@@ -478,7 +478,7 @@ Command Timeout=30;";
         public string NombreCliente { get; set; }
         public string NombreEmpleado { get; set; }
         public List<ServicioSimple> Servicios { get; set; } = new List<ServicioSimple>();
-        public string NombreServicios { get; set; } // Servicios concatenados
+        public string NombreServicios { get; set; } 
     }
 
     public class ClienteSimple

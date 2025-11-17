@@ -257,7 +257,7 @@ Command Timeout=30;";
                     if (permitida == 0)
                         throw new Exception($"La categoría '{categoriaProducto}' no está permitida para este servicio.");
 
-                    // Obtener stock actual del producto
+                    
                     var cmdStock = new SqlCommand("SELECT StockActual FROM Productos WHERE IdProducto = @IdProducto", connection);
                     cmdStock.Parameters.AddWithValue("@IdProducto", idProducto);
                     var stockObj = await cmdStock.ExecuteScalarAsync();

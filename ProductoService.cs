@@ -229,7 +229,6 @@ Command Timeout=30;";
         }
     }
 
-    // Clase modelo para Producto
     public class Producto
     {
         public int IdProducto { get; set; }

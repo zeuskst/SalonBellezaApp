@@ -14,7 +14,7 @@ namespace SalonBellezaApp
         private static readonly string LogFile = Path.Combine(AppDir, "login_attempts.log");
         private static readonly object _fileLock = new object();
 
-        // Lockout management
+        
         private class LockInfo
         {
             public int FailedCount { get; set; }
@@ -40,13 +40,12 @@ namespace SalonBellezaApp
             }
             catch
             {
-                // ignore errors in static ctor
             }
         }
 
         private static void EnsureDefaultCredential()
         {
-            // Ensure there is at least a credential for the current system user with password "admin"
+            
             var sysUser = Environment.UserName;
             lock (_fileLock)
             {
@@ -134,7 +133,7 @@ namespace SalonBellezaApp
             }
             catch
             {
-                // ignore logging errors
+                
             }
         }
 
@@ -163,7 +162,7 @@ namespace SalonBellezaApp
             lock (_locksLock)
             {
                 if (!_locks.TryGetValue(username, out var info)) info = new LockInfo();
-                // if currently locked, keep it
+                
                 if (info.LockoutEnd.HasValue && info.LockoutEnd.Value > DateTime.UtcNow)
                 {
                     _locks[username] = info;
@@ -177,7 +176,7 @@ namespace SalonBellezaApp
                     info.LockoutEnd = DateTime.UtcNow.Add(LockoutDuration);
                     info.FailedCount = 0;
                     _locks[username] = info;
-                    return true; // locked now
+                    return true; 
                 }
 
                 _locks[username] = info;

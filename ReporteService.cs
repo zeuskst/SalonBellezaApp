@@ -698,7 +698,7 @@ Command Timeout=30;";
                         }
                     }
 
-                    // Período 2
+                    
                     string query2 = @"SELECT 
                                         ISNULL(SUM(Monto), 0) AS IngresoTotal,
                                         COUNT(DISTINCT IdPago) AS TotalPagos,
@@ -729,7 +729,7 @@ Command Timeout=30;";
                         }
                     }
 
-                    // Calcular variaciones
+                    
                     if (comparacion.Periodo1 != null && comparacion.Periodo2 != null)
                     {
                         comparacion.VariacionIngreso = comparacion.Periodo2.IngresoTotal - comparacion.Periodo1.IngresoTotal;
@@ -748,7 +748,7 @@ Command Timeout=30;";
             return comparacion;
         }
 
-        // NUEVOS REPORTES
+        
         public async Task<List<ReporteIngresosEmpleado>> ObtenerIngresosPorEmpleadoAsync(DateTime fechaInicio, DateTime fechaFin)
         {
             var resultados = new List<ReporteIngresosEmpleado>();
@@ -1029,7 +1029,7 @@ Command Timeout=30;";
         public int TotalCitas { get; set; }
     }
 
-    // Nuevos modelos de reportes
+   
     public class ReporteIngresosEmpleado
     {
         public int IdEmpleado { get; set; }

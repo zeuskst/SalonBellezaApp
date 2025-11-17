@@ -27,14 +27,14 @@ namespace SalonBellezaApp
         private readonly ReporteService _reporteService;
         private TabControl _tabControl;
 
-        // UI controls references
+        
         private Button _btnGenerar;
         private Button _btnExport;
         private TextBlock _lblStatus;
         private TextBlock _lblRange;
         private ProgressBar _progressBar;
 
-        // Static cache so data persists when window is closed and reopened
+       
         private static List<ReporteIngreso> _cachedIngresos;
         private static List<ReporteServicio> _cachedServicios;
         private static List<ReporteEmpleado> _cachedEmpleados;
@@ -51,7 +51,7 @@ namespace SalonBellezaApp
             _reporteService = new ReporteService();
             CreateModernUI();
 
-            // Restore previously generated reports if any
+            
             RestoreCachedReports();
         }
 
@@ -106,7 +106,7 @@ namespace SalonBellezaApp
                     if (dg != null) dg.ItemsSource = _cachedMovimientos.Take(500).ToList();
                 }
             }
-            catch { /* ignore restore errors */ }
+            catch { }
         }
 
         private void CreateModernUI()
@@ -156,7 +156,7 @@ namespace SalonBellezaApp
             Grid headerGrid = new Grid();
             headerBorder.Child = headerGrid;
 
-            // three columns: title | user | actions
+            
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -283,7 +283,7 @@ namespace SalonBellezaApp
             Grid.SetRow(_tabControl, 1);
             contentGrid.Children.Add(_tabControl);
 
-            // Status bar
+          
             var statusBorder = new Border
             {
                 Background = new SolidColorBrush(Color.FromArgb(230, 250, 250, 250)),
@@ -410,7 +410,6 @@ namespace SalonBellezaApp
             return container;
         }
 
-        // Helper to attach a simple filter box above a DataGrid
         private void AttachFilterBox(StackPanel parentPanel, DataGrid grid, string name)
         {
             StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 8) };
@@ -471,7 +470,7 @@ namespace SalonBellezaApp
             this.RegisterName("dgIngresos", dgIngresos);
             panel.Children.Add(dgIngresos);
 
-            // Add filter box
+            
             AttachFilterBox(panel, dgIngresos, "txtFilterIngresos");
 
             tab.Content = scrollViewer;
@@ -727,7 +726,7 @@ namespace SalonBellezaApp
         {
             try
             {
-                // Disable controls and show progress
+                
                 _btnGenerar.IsEnabled = false;
                 _btnExport.IsEnabled = false;
                 _progressBar.Visibility = Visibility.Visible;
@@ -768,7 +767,7 @@ namespace SalonBellezaApp
                 DataGrid dgMovimientos = (DataGrid)this.FindName("dgMovimientos");
                 if (dgMovimientos != null) dgMovimientos.ItemsSource = movimientos.Take(500).ToList();
 
-                // Cache results so they persist when closing the window
+                
                 _cachedIngresos = ingresos;
                 _cachedServicios = servicios;
                 _cachedEmpleados = empleados;
@@ -839,7 +838,7 @@ namespace SalonBellezaApp
                 var selected = _tabControl.SelectedItem as TabItem;
                 if (selected == null) return;
 
-                // Ask scope: all tabs or only current tab
+                
                 var choice = MessageBox.Show("¿Exportar todas las tablas de todas las pestañas? (Sí = todas, No = solo pestaña actual, Cancelar = cancelar)",
                     "Exportar", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
@@ -849,7 +848,7 @@ namespace SalonBellezaApp
 
                 if (choice == MessageBoxResult.Yes)
                 {
-                    // export all DataGrids across all tabs
+                    
                     foreach (var item in _tabControl.Items)
                     {
                         if (item is TabItem ti && ti.Content is DependencyObject root)
@@ -860,14 +859,13 @@ namespace SalonBellezaApp
                 }
                 else
                 {
-                    // export only DataGrids within selected tab
+                    
                     if (selected.Content is DependencyObject root)
                     {
                         gridsToExport.AddRange(FindVisualChildren<DataGrid>(root));
                     }
                 }
 
-                // Filter out grids without data
                 gridsToExport = gridsToExport.Where(g => g != null && g.ItemsSource != null).ToList();
 
                 if (gridsToExport.Count == 0)
@@ -876,7 +874,7 @@ namespace SalonBellezaApp
                     return;
                 }
 
-                // If user chose to export all, create a reports folder and produce one file per grid
+                
                 if (choice == MessageBoxResult.Yes)
                 {
                     string baseFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BellaVistaReports", DateTime.Now.ToString("yyyyMMdd_HHmmss"));
@@ -893,7 +891,7 @@ namespace SalonBellezaApp
                         foreach (var dg in gridsToExport.Where(g => g.ItemsSource != null))
                         {
                             string fileName = $"reporte_{idx}.xlsx";
-                            // make filename safer by including grid name if available
+                            
                             if (!string.IsNullOrWhiteSpace(dg.Name))
                             {
                                 string safe = MakeValidFileName(dg.Name);
@@ -923,11 +921,10 @@ namespace SalonBellezaApp
                     return;
                 }
 
-                // Otherwise save a single workbook (existing behavior)
+                
                 SaveFileDialog sfd = new SaveFileDialog { Filter = "Excel Workbook|*.xlsx", FileName = "reportes.xlsx" };
                 if (sfd.ShowDialog() != true) return;
 
-                // show progress
                 _btnExport.IsEnabled = false;
                 _progressBar.Visibility = Visibility.Visible;
                 _lblStatus.Text = "Exportando...";
@@ -954,7 +951,7 @@ namespace SalonBellezaApp
 
         private void ExportMultipleDataGridsToExcel(List<DataGrid> grids, string path)
         {
-            // Determine range and user to include in sheet headers
+           
             DatePicker dpInicio = (DatePicker)this.FindName("dpFechaInicio");
             DatePicker dpFin = (DatePicker)this.FindName("dpFechaFin");
             DateTime? fechaInicio = dpInicio?.SelectedDate ?? _cachedFechaInicio;
@@ -968,7 +965,7 @@ namespace SalonBellezaApp
                 {
                     string sheetName = !string.IsNullOrWhiteSpace(dg.Name) ? dg.Name : $"Sheet{sheetIndex}";
                     sheetName = MakeValidSheetName(sheetName);
-                    // ensure uniqueness
+                   
                     string baseName = sheetName;
                     int suffix = 1;
                     while (wb.Worksheets.Any(ws => ws.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase)))
@@ -980,7 +977,7 @@ namespace SalonBellezaApp
 
                     var ws = wb.Worksheets.Add(sheetName);
 
-                    // Header info
+                   
                     int totalCols = dg.Columns.Count;
                     if (totalCols < 1) totalCols = 1;
                     ws.Cell(1, 1).Value = "Bella Vista - Reportes";
@@ -997,7 +994,7 @@ namespace SalonBellezaApp
                     int startRow = 6;
                     int col = 1;
 
-                    // Headers
+                    
                     foreach (var c in dg.Columns)
                     {
                         ws.Cell(startRow, col).Value = c.Header?.ToString() ?? string.Empty;
@@ -1005,7 +1002,7 @@ namespace SalonBellezaApp
                         col++;
                     }
 
-                    // Rows: prefer the filtered view if present
+                    
                     IEnumerable rowsEnumerable = null;
                     var view = CollectionViewSource.GetDefaultView(dg.ItemsSource);
                     if (view != null)
@@ -1032,7 +1029,7 @@ namespace SalonBellezaApp
                                     if (prop != null) value = prop.GetValue(item);
                                 }
 
-                                // Write typed value when possible
+                             
                                 if (value == null)
                                 {
                                     ws.Cell(rowIdx, col).Value = string.Empty;
@@ -1061,7 +1058,7 @@ namespace SalonBellezaApp
                         }
                     }
 
-                    // Autofit
+                    
                     ws.Columns().AdjustToContents();
                     sheetIndex++;
                 }
@@ -1188,7 +1185,7 @@ namespace SalonBellezaApp
         private static string MakeValidSheetName(string name)
         {
             if (string.IsNullOrEmpty(name)) return "Sheet1";
-            // remove invalid chars and trim to 31 chars
+            
             var invalid = new[] { ':', '\\', '/', '?', '*', '[', ']' };
             var clean = new string(name.Where(ch => !invalid.Contains(ch)).ToArray());
             clean = clean.Trim();
@@ -1196,7 +1193,7 @@ namespace SalonBellezaApp
             return clean.Length > 31 ? clean.Substring(0, 31) : clean;
         }
 
-        // helper to locate all DataGrid children in visual tree
+        
         private IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
         {
             if (parent == null) yield break;

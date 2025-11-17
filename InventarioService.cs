@@ -39,7 +39,7 @@ namespace SalonBellezaApp
         public int IdProducto { get; set; }
         public string NombreProducto { get; set; }
 
-        // Campos adicionales del producto para mostrar en historial
+       
         public string Categoria { get; set; }
         public int StockActual { get; set; }
         public int StockMinimo { get; set; }
@@ -375,7 +375,7 @@ Command Timeout=30;";
 
                         mov.TipoMovimiento = reader.IsDBNull(reader.GetOrdinal("TipoMovimiento")) ? string.Empty : reader.GetString(reader.GetOrdinal("TipoMovimiento"));
 
-                        // Cantidad puede ser decimal o int en BD, usar Convert
+                        
                         object cantidadObj = reader.GetValue(reader.GetOrdinal("Cantidad"));
                         mov.Cantidad = cantidadObj == DBNull.Value ? 0 : Convert.ToDecimal(cantidadObj);
 

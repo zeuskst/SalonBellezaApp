@@ -222,7 +222,7 @@ namespace SalonBellezaApp
 
             mainPanel.Children.Add(statsGrid);
 
-            // Productos con stock bajo
+            
             Border stockBajoSection = CreateSection("⚠️ Productos con Stock Bajo");
             DataGrid gridStockBajo = CreateDataGrid();
             gridStockBajo.Name = "dgStockBajo";
@@ -230,7 +230,7 @@ namespace SalonBellezaApp
             ((StackPanel)stockBajoSection.Child).Children.Add(gridStockBajo);
             mainPanel.Children.Add(stockBajoSection);
 
-            // Productos próximos a vencer
+           
             Border vencimientoSection = CreateSection("📅 Productos Próximos a Vencer (30 días)");
             DataGrid gridVencimiento = CreateDataGrid();
             gridVencimiento.Name = "dgVencimiento";
@@ -253,7 +253,7 @@ namespace SalonBellezaApp
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-            // Formulario
+            
             Border formBorder = new Border
             {
                 Background = Brushes.White,
@@ -264,7 +264,7 @@ namespace SalonBellezaApp
 
             StackPanel formPanel = new StackPanel();
 
-            // Producto
+           
             TextBlock lblProducto = new TextBlock
             {
                 Text = "Producto:",
@@ -279,7 +279,7 @@ namespace SalonBellezaApp
             };
             this.RegisterName("cmbProducto", cmbProducto);
 
-            // Tipo de movimiento
+           
             TextBlock lblTipo = new TextBlock
             {
                 Text = "Tipo de Movimiento:",
@@ -298,7 +298,7 @@ namespace SalonBellezaApp
             cmbTipo.SelectedIndex = 0;
             this.RegisterName("cmbTipoMovimiento", cmbTipo);
 
-            // Cantidad
+            
             TextBlock lblCantidad = new TextBlock
             {
                 Text = "Cantidad:",
@@ -313,7 +313,7 @@ namespace SalonBellezaApp
             };
             this.RegisterName("txtCantidad", txtCantidad);
 
-            // Motivo
+           
             TextBlock lblMotivo = new TextBlock
             {
                 Text = "Motivo:",
@@ -331,7 +331,7 @@ namespace SalonBellezaApp
             };
             this.RegisterName("txtMotivo", txtMotivo);
 
-            // Botón
+           
             Button btnRegistrar = new Button
             {
                 Content = "✅ Registrar Movimiento",
@@ -374,7 +374,7 @@ namespace SalonBellezaApp
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-            // Filtros
+            
             StackPanel filterPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -416,8 +416,7 @@ namespace SalonBellezaApp
             DataGrid dgHistorial = CreateDataGrid();
             dgHistorial.Name = "dgHistorial";
             dgHistorial.AutoGenerateColumns = false;
-            // CreateDataGrid() añade columnas por defecto (Producto, Categoría, Stock, etc.).
-            // Limpiarlas para evitar duplicados y dejar solo las necesarias para el historial.
+            
             dgHistorial.Columns.Clear();
             dgHistorial.Columns.Add(new DataGridTextColumn { Header = "Fecha", Binding = new System.Windows.Data.Binding("FechaMovimiento") { StringFormat = "dd/MM/yyyy HH:mm" }, Width = new DataGridLength(140) });
             dgHistorial.Columns.Add(new DataGridTextColumn { Header = "Producto", Binding = new System.Windows.Data.Binding("NombreProducto"), Width = new DataGridLength(180) });
@@ -461,13 +460,13 @@ namespace SalonBellezaApp
             };
 
             Grid cardGrid = new Grid { Margin = new Thickness(20) };
-            // Filas y columnas: título+icon en la fila superior, valor en la inferior
+            
             cardGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             cardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             cardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             cardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-            // Icono dentro de un Viewbox para evitar recorte y escalar correctamente
+            
             TextBlock iconInner = new TextBlock
             {
                 Text = icon,
@@ -580,7 +579,7 @@ namespace SalonBellezaApp
         {
             try
             {
-                // Cargar estadísticas
+                
                 var stats = await _inventarioService.ObtenerEstadisticasAsync();
                 var valorTotal = await _inventarioService.ObtenerValorTotalInventarioAsync();
 
@@ -594,17 +593,16 @@ namespace SalonBellezaApp
                 UpdateCardValue(cardSinStock, stats.SinStock.ToString());
                 UpdateCardValue(cardValor, $"${valorTotal:N2}");
 
-                // Cargar productos con stock bajo
+                
                 var stockBajo = await _inventarioService.ObtenerProductosStockBajoAsync();
                 DataGrid dgStockBajo = (DataGrid)this.FindName("dgStockBajo");
                 dgStockBajo.ItemsSource = stockBajo;
 
-                // Cargar productos próximos a vencer
+                
                 var proximosVencer = await _inventarioService.ObtenerProductosProximosVencerAsync();
                 DataGrid dgVencimiento = (DataGrid)this.FindName("dgVencimiento");
                 dgVencimiento.ItemsSource = proximosVencer;
 
-                // Cargar productos para el combo
                 var productos = await _inventarioService.ObtenerInventarioAsync();
                 _productosActuales = productos;
                 ComboBox cmbProducto = (ComboBox)this.FindName("cmbProducto");
@@ -612,7 +610,6 @@ namespace SalonBellezaApp
                 cmbProducto.DisplayMemberPath = "Nombre";
                 cmbProducto.SelectedValuePath = "IdProducto";
 
-                // Cargar historial
                 await CargarHistorialAsync();
             }
             catch (Exception ex)
@@ -671,11 +668,11 @@ namespace SalonBellezaApp
 
                 MessageBox.Show("Movimiento registrado correctamente", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Limpiar formulario
+              
                 txtCantidad.Clear();
                 txtMotivo.Clear();
 
-                // Recargar datos
+                
                 await CargarDatosAsync();
             }
             catch (Exception ex)

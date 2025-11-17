@@ -848,7 +848,7 @@ namespace SalonBellezaApp
                 DatePicker dpFechaCaducidad = (DatePicker)this.FindName("dpFechaCaducidad");
                 ComboBox cmbEstado = (ComboBox)this.FindName("cmbEstado");
 
-                // Validaciones
+                
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
                     MessageBox.Show("El nombre del producto es obligatorio.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -934,7 +934,7 @@ namespace SalonBellezaApp
                 DatePicker dpFechaCaducidad = (DatePicker)this.FindName("dpFechaCaducidad");
                 ComboBox cmbEstado = (ComboBox)this.FindName("cmbEstado");
 
-                // Validaciones
+                
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
                     MessageBox.Show("El nombre del producto es obligatorio.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -986,7 +986,7 @@ namespace SalonBellezaApp
 
                 if (resultado)
                 {
-                    // Registrar movimiento de stock si hubo cambio
+                
                     int delta = productoEditando.StockActual - previousStock;
                     if (delta != 0)
                     {
@@ -1037,7 +1037,7 @@ namespace SalonBellezaApp
             Producto producto = (Producto)button.Tag;
             productoEditando = producto;
 
-            // Llenar formulario con datos del producto
+            
             ((TextBox)this.FindName("txtNombre")).Text = producto.Nombre;
             ((TextBox)this.FindName("txtCategoria")).Text = producto.Categoria;
             ((TextBox)this.FindName("txtPrecioCompra")).Text = producto.PrecioCompra.ToString("F2");
